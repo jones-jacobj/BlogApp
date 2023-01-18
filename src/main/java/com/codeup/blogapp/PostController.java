@@ -11,13 +11,13 @@ public class PostController {
     @GetMapping("/posts")
     @ResponseBody
     public String getPosts(){
-        return "You're on the Posts page!";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     @ResponseBody
     public String getPostNumber(@PathVariable int id){
-        return "You're on the posts page for post #" + id + "!";
+        return "posts/show";
     }
 
     @RequestMapping(path="/posts/create", method = RequestMethod.GET)
