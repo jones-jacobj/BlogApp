@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <nav th:replace="partials :: head" />
 </head>
 <body>
+    <nav th:replace ="partials :: navbar" />
     <h1>This is the home page</h1>
+    <nav th:replace ="partials :: footer" />
 </body>
 </html>
