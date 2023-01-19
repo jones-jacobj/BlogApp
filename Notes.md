@@ -3,12 +3,14 @@
 - MySQL
 - Spring
 - Thyme
+- Jakarta
 
 
 <u><b>Why are we using...</u></b>
 - MySQL - To allow storing of blogs and other data in a coherent and efficient way
-- Spring - To handle Java Servlets/ logic & site navigation control
+- Spring - Web project wrapper, to handle Java Servlets/ logic & site navigation control
 - Thyme - To handle presentation of html files and extend capabilities vs. JSPs
+- Jarkta - Driver to control communication between Java & MYSQL Database
 
 
 <u><b>Notes</u></b>
@@ -34,4 +36,4 @@
 
     //Import Thyme, in header in html
 
-    < html xmlns:th="http://www.thymeleaf.org" >
+    < html xmlns:th="http://www.thymeleaf.org">

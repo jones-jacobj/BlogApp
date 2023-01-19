@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Handles all functions and mapping dealing with post, posting, viewing posts
+ * Handles all functions and mapping dealing with posts | creating & viewing posts
  */
 @Controller
 public class PostController {
