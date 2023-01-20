@@ -1,6 +1,7 @@
 package com.codeup.blogapp;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -8,15 +9,23 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class PostController {
+    private final PostRepository postRepo;
+
+    public PostController(PostRepository postRepo) {
+        this.postRepo = postRepo;
+    }
+
     @GetMapping("/posts")
     @ResponseBody
-    public String getPosts(){
+    public String getPosts(Model model){
+        model.addAttribute("posts", this.postRepo.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String getPostNumber(@PathVariable int id){
+    public String getPostNumber(Model model, @PathVariable long id){
+        model.addAttribute("posts",this.postRepo.findById(id));
         return "posts/show";
     }
 

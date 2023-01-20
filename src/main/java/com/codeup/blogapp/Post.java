@@ -1,31 +1,32 @@
 package com.codeup.blogapp;
 
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false, length = 255)
     private String body;
-    private Post[] posts;
 
     public Post(String title, String body){
         this.title = title;
         this.body = body;
     }
 
-    @GetMapping("/posts/index")
-    public Post[] viewAll(Model model){
-        posts = new Post[2];
-        posts[0] = new Post("Hello","This says Hello!");
-        posts[1] = new Post("Goodbye","This says goodbye!");
-        model.addAttribute("posts", posts);
-
-        return posts;
+    public Post(Long id, String title, String body){
+        this.id = id;
+        this.title = title;
+        this.body = body;
     }
 
-    public String getTitle(){return this.title;}
-    public void setTitle(String title){this.title=title;}
+    public Post() {
 
-    public String getBody(){return this.body;}
-    public void setBody(String body){this.body=body;}
+    }
 }
