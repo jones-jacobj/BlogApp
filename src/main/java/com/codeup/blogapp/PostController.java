@@ -15,29 +15,31 @@ public class PostController {
         this.postRepo = postRepo;
     }
 
-    @GetMapping("/posts")
-    @ResponseBody
+    @GetMapping("posts")
     public String getPosts(Model model){
         model.addAttribute("posts", this.postRepo.findAll());
-        return "redirect:/localhost/posts/index";
+        System.out.println("Intercepted /posts GET method");
+        return "posts/index";
     }
 
-    @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String getPostNumber(Model model, @PathVariable long id){
+    @GetMapping("posts/{id}")
+    public String getPostNumber (Model model, @PathVariable long id){
         model.addAttribute("posts",this.postRepo.findById(id));
         return "posts/show";
     }
 
-    @RequestMapping(path="/posts/create", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping("posts/create")
     public String createPost_GET(){
-        return "redirect:/posts/create";
+        return "posts/create";
     }
 
-    @RequestMapping(path="/posts/create", method = RequestMethod.POST)
+    @PostMapping("posts/create")
     @ResponseBody
-    public String createPost_POST(){
-        return "You're on the create posts POST page!";
+    public String createPost_POST(@RequestParam(name="title") String title,
+    @RequestParam(name="body") String body){
+        Post p1 = new Post(title, body);
+        postRepo.insert(p1);
+
+        return("redirect:/posts/index");
     }
 }

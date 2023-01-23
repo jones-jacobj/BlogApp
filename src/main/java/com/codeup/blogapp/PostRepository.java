@@ -9,4 +9,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 //    @Query("from Post a where a.title like %:term%")
     Post searchByTitleLike(String title);
+
+    @Query(value="insert into posts (title, body) values a.title, a.body", nativeQuery = true)
+    void insert(Post post);
 }
