@@ -36,4 +36,5 @@
 
     //Import Thyme, in header in html
 
-    < html xmlns:th="http://www.thymeleaf.org">
+  ```<html xmlns:th="http://www.thymeleaf.org">```
+    

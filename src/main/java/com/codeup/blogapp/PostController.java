@@ -19,7 +19,7 @@ public class PostController {
     @ResponseBody
     public String getPosts(Model model){
         model.addAttribute("posts", this.postRepo.findAll());
-        return "posts/index";
+        return "redirect:/localhost/posts/index";
     }
 
     @GetMapping("/posts/{id}")
@@ -32,7 +32,7 @@ public class PostController {
     @RequestMapping(path="/posts/create", method = RequestMethod.GET)
     @ResponseBody
     public String createPost_GET(){
-        return "You're on the create posts GET page!";
+        return "redirect:/posts/create";
     }
 
     @RequestMapping(path="/posts/create", method = RequestMethod.POST)
