@@ -34,12 +34,10 @@ public class PostController {
     }
 
     @PostMapping("posts/create")
-    @ResponseBody
     public String createPost_POST(@RequestParam(name="title") String title,
     @RequestParam(name="body") String body){
-        Post p1 = new Post(title, body);
-        postRepo.insert(p1);
 
-        return("redirect:/posts/index");
+        postRepo.save(new Post(title, body));
+        return("redirect:/posts");
     }
 }
