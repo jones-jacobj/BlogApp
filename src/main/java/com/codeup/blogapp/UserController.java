@@ -1,14 +1,23 @@
 package com.codeup.blogapp;
 
+import com.codeup.blogapp.Models.Post;
+import com.codeup.blogapp.Models.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
     Represents the users that can conncet to database & view, edit, or delete their posts
  */
+@Controller
 public class UserController{
-    private final UserController userRepo;
+    private final UserRepository userRepo;
 
-    public UserController(UserController userRepo){this.userRepo=userRepo;}
+    public UserController(UserRepository userRepo){
+        this.userRepo=userRepo;
+    }
 
 //
 //      MAPPING: [GET] localhost:8080/login
@@ -16,6 +25,38 @@ public class UserController{
 //
     @GetMapping("login")
     public String userPage(){
-        return "/users/index";
+        return "users/index";
+    }
+
+
+//
+//      MAPPING: [GET] localhost:8080/register
+//       INTENT: Check to see if user is already logged in, otherwise allow registering new User
+//
+    @GetMapping("register")
+    public String checkRegister(){
+        //TODO: Check to see if logged in
+        return "users/register";
+    }
+
+//
+//      MAPPING: [POST] localhost:8080/register
+//       INTENT: Handle validating submitted info & logging in a user
+//
+
+    @PostMapping("users/register")
+    public String doLogin(@RequestParam(name = "user") String username,
+                          @RequestParam(name = "pass") String password,
+                          @RequestParam(name = "pass2") String password2,
+                          @RequestParam(name = "email") String email){
+        System.out.println("Received attempted to create user");
+        if (password.equals(password2)){
+            System.out.println("Passwords match");
+            userRepo.save(new User(username, password, email));
+            return ("redirect:/users/index");
+        }else{
+            System.out.println("ERROR:> Passwords need to match");
+            return "users/register";
+        }
     }
 }
