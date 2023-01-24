@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /*
-    Represents the users that can conncet to database & view, edit, or delete their posts
+    Represents the users that can connect to database & view, edit, or delete their posts
  */
 @Controller
 public class UserController{

@@ -9,6 +9,8 @@ import java.util.List;
  */
 @Entity
 public class User {
+
+// ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,6 +21,7 @@ public class User {
         this.id = id;
     }
 
+// USERNAME
     @Column(nullable=false, length=20)
     private String username;
     public String getUsername() {
@@ -28,6 +31,7 @@ public class User {
         this.username = username;
     }
 
+// PASSWORD
     @Column(nullable = false, length = 20)
     private String password;
     public String getPassword() {
@@ -37,6 +41,7 @@ public class User {
         this.password = password;
     }
 
+// EMAIL
     @Column(nullable = false, length = 40)
     private String email;
     public String getEmail() {
@@ -46,6 +51,7 @@ public class User {
         this.email = email;
     }
 
+// POSTS
     @OneToMany
     private List<Post> posts;
     public void addPost(Post post){this.posts.add(post);}

@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "posts")
 public class Post {
+
+// ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,6 +18,7 @@ public class Post {
         this.id = id;
     }
 
+// TITLE
     @Column(nullable = false, length = 100)
     private String title;
     public String getTitle() {
@@ -25,6 +28,7 @@ public class Post {
         this.title = title;
     }
 
+// BODY
     @Column(nullable = false, length = 255)
     private String body;
     public String getBody() {
@@ -34,6 +38,7 @@ public class Post {
         this.body = body;
     }
 
+// USER (OWNER)
     @OneToOne
     private User user;
     public User getUser() {
