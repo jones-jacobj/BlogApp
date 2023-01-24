@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+/*
+    Takes in an argument and returns a custom hello message
+ */
 @Controller
 public class HelloController {
     @GetMapping("/hello/{name}")

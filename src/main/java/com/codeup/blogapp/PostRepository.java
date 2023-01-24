@@ -1,11 +1,13 @@
 package com.codeup.blogapp;
 
+import com.codeup.blogapp.Models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
+/*
+    Extends JpaRepository, allows custom MYSQL database methods, with regard to posts;
+ */
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("from Post a where a.id = ?1")
     Post getPostById(Long id);
     Post searchByTitleLike(String title);
 }
