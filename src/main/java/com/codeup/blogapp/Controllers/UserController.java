@@ -15,7 +15,7 @@ public class UserController{
     private final UserRepository userRepo;
 
     public UserController(UserRepository userRepo){
-        this.userRepo=userRepo;
+        this.userRepo = userRepo;
     }
 
 //
@@ -24,7 +24,7 @@ public class UserController{
 //
     @GetMapping("login")
     public String userPage(){
-        return "login";
+        return "users/login";
     }
 
 
@@ -48,11 +48,11 @@ public class UserController{
                           @RequestParam(name = "pass") String password,
                           @RequestParam(name = "pass2") String password2,
                           @RequestParam(name = "email") String email){
-        System.out.println("Received attempted to create user");
         if (password.equals(password2)){
             System.out.println("Passwords match");
             userRepo.save(new User(username, password, email));
-            return ("redirect:/users/index");
+
+            return ("redirect:/");
         }else{
             System.out.println("ERROR:> Passwords need to match");
             return "users/register";

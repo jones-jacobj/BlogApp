@@ -8,6 +8,7 @@ import java.util.List;
     Class to represent the users that can Post to the blog
  */
 @Entity
+@Table(name="users")
 public class User {
 
 // ID
