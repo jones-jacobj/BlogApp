@@ -1,9 +1,8 @@
-package com.codeup.blogapp;
+package com.codeup.blogapp.Controllers;
 
-import com.codeup.blogapp.Models.Post;
 import com.codeup.blogapp.Models.User;
+import com.codeup.blogapp.Repositories.UserRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +24,7 @@ public class UserController{
 //
     @GetMapping("login")
     public String userPage(){
-        return "users/index";
+        return "login";
     }
 
 
