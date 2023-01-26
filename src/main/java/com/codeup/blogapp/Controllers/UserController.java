@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController{
     private final UserRepository userRepo;
+    public static boolean isLoggedIn = false;
 
     public UserController(UserRepository userRepo){
         this.userRepo = userRepo;
@@ -27,6 +28,28 @@ public class UserController{
         return "users/login";
     }
 
+    //
+    //      MAPPING: [POST] localhost:8080/login
+    //       INTENT: Handle login, verify username & password, toggle 'loggedIn' static value
+    //
+
+    @PostMapping("login")
+    public String userPage2(
+            @RequestParam(name = "user") String username,
+            @RequestParam(name = "pass") String password){
+        User user = this.userRepo.findUserByUsernameAndPassword(username, password);
+        System.out.println(user);
+        if (user != null){
+            System.out.printf("User %s succesfully logged in",user.getUsername());
+            UserController.isLoggedIn = true;
+
+
+            return "redirect:posts/create";
+        }
+
+        return "redirect:login";
+
+    }
 
 //
 //      MAPPING: [GET] localhost:8080/register
@@ -44,14 +67,15 @@ public class UserController{
 //
 
     @PostMapping("users/register")
-    public String doLogin(@RequestParam(name = "user") String username,
-                          @RequestParam(name = "pass") String password,
-                          @RequestParam(name = "pass2") String password2,
-                          @RequestParam(name = "email") String email){
+    public String doRegistration(@RequestParam(name = "user") String username,
+                                 @RequestParam(name = "pass") String password,
+                                 @RequestParam(name = "pass2") String password2,// For validation only
+                                 @RequestParam(name = "email") String email){
         if (password.equals(password2)){
             System.out.println("Passwords match");
             userRepo.save(new User(username, password, email));
 
+            isLoggedIn = true;
             return ("redirect:/");
         }else{
             System.out.println("ERROR:> Passwords need to match");

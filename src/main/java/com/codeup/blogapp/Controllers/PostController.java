@@ -1,8 +1,8 @@
 package com.codeup.blogapp.Controllers;
 
 import com.codeup.blogapp.Models.Post;
-import com.codeup.blogapp.Models.User;
 import com.codeup.blogapp.Repositories.PostRepository;
+import com.codeup.blogapp.Services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,10 +57,17 @@ public class PostController {
 //
     @PostMapping("posts/create")
     public String createPost_POST(@RequestParam(name = "title") String title,
-                                  @RequestParam(name = "body") String body,
-                                  @RequestParam(name = "user") User user){
-
-        postRepo.save(new Post(title, body, user));
-        return ("redirect:/posts");
-    }
+                                  @RequestParam(name = "body") String body
+//                                  @RequestParam(name = "user") User user
+                                  ){
+        if(UserController.isLoggedIn) {
+            Post p1 = new Post();
+            p1.setTitle(title);
+            p1.setBody(body);
+            postRepo.save(p1);
+            return ("redirect:/posts");
+        }else{
+            return ("redirect:/login");
+        }
+        }
 }
