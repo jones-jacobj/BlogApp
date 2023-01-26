@@ -2,6 +2,7 @@ package com.codeup.blogapp.Controllers;
 
 import com.codeup.blogapp.Models.Post;
 import com.codeup.blogapp.Repositories.PostRepository;
+import com.codeup.blogapp.Repositories.UserRepository;
 import com.codeup.blogapp.Services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
     private final PostRepository postRepo;
+    private final UserRepository userRepo;
 
-    public PostController(PostRepository postRepo) {
+    public PostController(PostRepository postRepo, UserRepository userRepo){
         this.postRepo = postRepo;
+        this.userRepo = userRepo;
     }
 
 //
@@ -57,11 +60,12 @@ public class PostController {
 //
     @PostMapping("posts/create")
     public String createPost_POST(@RequestParam(name = "title") String title,
-                                  @RequestParam(name = "body") String body
-//                                  @RequestParam(name = "user") User user
+                                  @RequestParam(name = "body") String body,
+                                  @CookieValue(value="name", defaultValue = "") String user
                                   ){
-        if(UserController.isLoggedIn) {
+        if(user != null) {
             Post p1 = new Post();
+            p1.setUser(this.userRepo.findUserByUsername(user));
             p1.setTitle(title);
             p1.setBody(body);
             postRepo.save(p1);

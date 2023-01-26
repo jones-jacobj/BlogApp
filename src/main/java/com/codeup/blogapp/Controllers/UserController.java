@@ -2,6 +2,7 @@ package com.codeup.blogapp.Controllers;
 
 import com.codeup.blogapp.Models.User;
 import com.codeup.blogapp.Repositories.UserRepository;
+import jakarta.servlet.http.Cookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController{
     private final UserRepository userRepo;
-    public static boolean isLoggedIn = false;
+//    public static boolean isLoggedIn = false;
 
     public UserController(UserRepository userRepo){
         this.userRepo = userRepo;
@@ -37,11 +38,12 @@ public class UserController{
     public String userPage2(
             @RequestParam(name = "user") String username,
             @RequestParam(name = "pass") String password){
+
         User user = this.userRepo.findUserByUsernameAndPassword(username, password);
         System.out.println(user);
         if (user != null){
             System.out.printf("User %s succesfully logged in",user.getUsername());
-            UserController.isLoggedIn = true;
+            Cookie cookie = new Cookie("username",user.getUsername());
 
 
             return "redirect:posts/create";
@@ -75,7 +77,7 @@ public class UserController{
             System.out.println("Passwords match");
             userRepo.save(new User(username, password, email));
 
-            isLoggedIn = true;
+//            isLoggedIn = true;
             return ("redirect:/");
         }else{
             System.out.println("ERROR:> Passwords need to match");
